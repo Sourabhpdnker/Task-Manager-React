@@ -1,67 +1,73 @@
-import { useState } from "react";
-import { FaPlus, FaSearchengin } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
-import FilterButton from "./FilterButton";
+// Todo.js
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import TodoList from "./TodoList";
-const Todo = () => {
-  const dispatch = useDispatch();
+import FilterButtons from "./FilterButtons";
+import { BsSearch, BsPlus } from "react-icons/bs";
+import { addTodo, updateSearchTerm } from "../redux/actions";
 
+const Todo = () => {
+  const todos = useSelector((state) => state.todos);
+  const filter = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
   const [newTodoText, setNewTodoText] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleAddTodo = (text) => {
     dispatch(addTodo(text));
   };
+
   const handleAddTodoClick = () => {
     if (newTodoText.trim() !== "") {
       handleAddTodo(newTodoText.trim());
       setNewTodoText("");
     }
   };
-  const handleSearchChanges = (value) => {
+
+  const handleSearchChange = (value) => {
     setSearchTerm(value);
-    dispatch(updateSearchTream(value));
+    dispatch(updateSearchTerm(value));
   };
+
   return (
-    <div className="max-w-4xl sm:mx-auto mx-3 sm:mt-4 m-2 p-3 bg-gray-200 rounded-md shadow-xl">
-      <h1 className="mt-3 mb-6 text-2xl font-bold text-center uppercase">
-        personal todo app
-      </h1>
-      {/* input text and btn  */}
-      <div class="flex items-center">
+    <div className="max-w-4xl mx-auto sm:mt-8 p-4 bg-gray-100 rounded">
+      <h2 className="mt-3 mb-6 text-2xl font-bold text-center uppercase">
+        Personal TODO APP
+      </h2>
+      <div className="flex items-center mb-4">
         <input
+          id="addTodoInput"
+          className="flex-grow p-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500"
+          type="text"
+          placeholder="Add Todo"
           value={newTodoText}
           onChange={(e) => setNewTodoText(e.target.value)}
-          type="text"
-          className="flex-grow p-2 border-b-2 border-gray-200 focus:outline-none focus:border-blue-500 rounded"
-          name="addtodoInput"
-          placeholder="Add Todo.."
-        ></input>
+        />
         <button
+          className="ml-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
           onClick={handleAddTodoClick}
-          className="ml-4 p-3 bg-blue-500 text-white rounded hover:bg-green-400 focus:outline-none"
         >
-          <FaPlus />
+          <BsPlus size={20} />
         </button>
       </div>
-      {/* filter and search functions  */}
-      <div className="flex items-center justify-between mt-3">
-        <FilterButton></FilterButton>
-        <div className="flex items-center mt-3 mb-4">
+
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <FilterButtons />
+        <div className="flex items-center mb-4">
           <input
-            value={searchTerm}
-            onChange={(e) => handleSearchChanges(e.target.value)}
+            className="flex-grow p-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500"
             type="text"
-            className="flex-grow p-2 border-b-2 ml-2 border-gray-200 focus:outline-none focus:border-blue-500 rounded"
-            name="addtodoInput"
-            placeholder="Search.."
-          ></input>
-          <button className="ml-4 p-3 bg-blue-500 text-white rounded hover:bg-green-400 focus:outline-none">
-            <FaSearchengin />
+            placeholder="Search Todos"
+            value={searchTerm}
+            onChange={(e) => handleSearchChange(e.target.value)}
+          />
+          <button className="ml-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">
+            <BsSearch size={20} />
           </button>
         </div>
       </div>
-      <TodoList></TodoList>
+
+      {/* <TodoList /> */}
     </div>
   );
 };

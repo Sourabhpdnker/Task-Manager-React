@@ -32,7 +32,7 @@ export const filterTodos = (filter) => ({
 export const markAllCompleted = () => ({
     type: MARK_ALL_COMPLETED,
 })
-export const updateSearchTream = (searchTerm) => ({
+export const updateSearchTerm = (searchTerm) => ({
     type: UPDATE_SEARCH_TREAM,
     payload: { searchTerm }
 })
