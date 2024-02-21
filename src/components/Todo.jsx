@@ -31,9 +31,9 @@ const Todo = () => {
 
   return (
     <>
-      <div className="max-w-4xl sm:mx-auto sm:mt-8 mt-4 mb-2 p-2 mx-5 bg-purple-700 rounded-xl">
-        <h2 className="mt-3 mb-6 text-4xl font-bold text-center uppercase">
-          Personal TODO APP
+      <div className="max-w-4xl sm:mx-auto sm:mt-8 mt-4 mb-2 p-2 mx-5 bg-indigo-600 rounded-xl">
+        <h2 className="mt-3 mb-3 text-4xl font-bold font-mono text-center uppercase">
+          Personal Task Manager
         </h2>
       </div>
       <div className="max-w-4xl sm:mx-auto sm:mt-8 mx-3 p-4 bg-orange-100 rounded-lg">
