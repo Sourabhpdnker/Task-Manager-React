@@ -67,7 +67,7 @@ const Todo = () => {
         </div>
       </div>
 
-      {/* <TodoList /> */}
+      <TodoList />
     </div>
   );
 };

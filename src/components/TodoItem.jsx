@@ -3,7 +3,7 @@ import {
   toggleTodo,
   removeTodo,
   markCompleted,
-  markInCompleted,
+  markIncomplete,
 } from "../redux/actions";
 import {
   FaToggleOn,
@@ -53,7 +53,7 @@ const TodoItem = ({ todo, index }) => {
         {todo.completed && (
           <button
             className="text-sm bg-yellow-500 text-white sm:px-2 px-1 py-1 rounded"
-            onClick={() => dispatch(markInCompleted(index))}
+            onClick={() => dispatch(markIncomplete(index))}
           >
             <FaTimes />
           </button>

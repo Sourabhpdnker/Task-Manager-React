@@ -1,67 +1,84 @@
-import { ADD_TODO, FILTER_TODO, MARK_COMPLETED, MARK_INCOMPLETED, REMOVE_TODO, TOGGLE_TODO, UPDATE_SEARCH_TREAM } from "./actionTypes";
+// reducers.js
+import {
+    ADD_TODO,
+    TOGGLE_TODO,
+    REMOVE_TODO,
+    MARK_COMPLETED,
+    MARK_INCOMPLETE,
+    FILTER_TODOS,
+    MARK_ALL_COMPLETED,
+    UPDATE_SEARCH_TERM,
+} from './actionTypes';
 
-const initailState = {
-    todo: [],
-    filter: "ALL",
-    searchTerm: ""
-}
-const todoreducer = (state = initailState, action) => {
+const initialState = { todos: [], filter: 'ALL', searchTerm: '' };
+
+const todoReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TODO:
             return {
-                todos: [...action.todos, { text: action.payload.text, completed: false }],
+                todos: [...state.todos, { text: action.payload.text, completed: false }],
                 filter: state.filter,
                 searchTerm: state.searchTerm,
-            }
+            };
 
         case TOGGLE_TODO:
             return {
                 todos: state.todos.map((todo, index) =>
-                    index === action.payload.id ? { ...todo, completed: !todo.completed } : todo),
+                    index === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+                ),
                 filter: state.filter,
                 searchTerm: state.searchTerm,
-            }
+            };
+
         case REMOVE_TODO:
             return {
-                todos: state.todos.filter((todo, index) =>
-                    index !== action.payload.id),
+                todos: state.todos.filter((todo, index) => index !== action.payload.id),
                 filter: state.filter,
-                searchTerm: action.searchTerm,
-            }
+                searchTerm: state.searchTerm,
+            };
+
         case MARK_COMPLETED:
             return {
                 todos: state.todos.map((todo, index) =>
-                    index === action.payload.id ? { ...todo, completed: true } : todo),
+                    index === action.payload.id ? { ...todo, completed: true } : todo
+                ),
                 filter: state.filter,
                 searchTerm: state.searchTerm,
-            }
-        case MARK_INCOMPLETED:
+            };
+
+        case MARK_INCOMPLETE:
             return {
                 todos: state.todos.map((todo, index) =>
-                    index === action.payload.id ? { ...todo, completed: false } : todo),
+                    index === action.payload.id ? { ...todo, completed: false } : todo
+                ),
                 filter: state.filter,
                 searchTerm: state.searchTerm,
-            }
-        case FILTER_TODO:
+            };
+
+        case FILTER_TODOS:
             return {
                 todos: state.todos,
                 filter: action.payload.filter,
                 searchTerm: state.searchTerm,
-            }
-        case UPDATE_SEARCH_TREAM:
+            };
+
+        case UPDATE_SEARCH_TERM:
             return {
                 todos: state.todos,
-                filter: action.payload.filter,
+                filter: state.filter,
                 searchTerm: action.payload.searchTerm,
-            }
-        case UPDATE_SEARCH_TREAM:
+            };
+
+        case MARK_ALL_COMPLETED:
             return {
                 todos: state.todos.map((todo) => ({ ...todo, completed: true })),
-                filter: action.payload.filter,
-                searchTerm: action.payload.searchTerm,
-            }
+                filter: state.filter,
+                searchTerm: state.searchTerm,
+            };
+
         default:
             return state;
     }
-}
-export default todoreducer;
+};
+
+export default todoReducer;
